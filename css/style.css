@@ -122,6 +122,11 @@ body {
   color: #fff;
 }
 
+.gallery__view-more-btn:disabled {
+  background-color: rgb(255, 0, 0);
+  opacity: 0.3;
+}
+
 
 
 

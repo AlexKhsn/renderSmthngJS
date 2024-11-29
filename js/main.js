@@ -7,7 +7,6 @@ let showMoreBtn = document.querySelector('.gallery__view-more-btn');
 
 
 function addAndShowImg(imgObj) {
-  console.log(imgObj)
   let imgUrl = imgObj.thumbnailUrl;
   let newGalleryItem = document.createElement('li');
   let newGalleryImg = document.createElement('img');
@@ -32,27 +31,29 @@ function addAndShowImg(imgObj) {
 }
 
 
-function getImgsAndSetCountValue() {
+function getImgsAndSetNumValue() {
   fetch('https://jsonplaceholder.typicode.com/photos')
   .then((response) => response.json())
   .then((images) => {
-    lastImg += limit;
+    lastImgNum += limit;
 
-    for (let i = startCount; i < lastImg; i++) {
-      currentCount = i;
-      addAndShowImg(images[i]);
+    for (startNum; startNum < lastImgNum; startNum++) {
+      if (images[startNum]) {
+        addAndShowImg(images[startNum]);
+      } else {
+        showMoreBtn.setAttribute('disabled', true);
+        showMoreBtn.textContent = 'Больше нет :(';
+        return;
+      }
     }
-
-    startCount = ++currentCount;
   });
 }
 
 
-let startCount = 0;
-let currentCount = 0;
+let startNum = 0;
 let limit = 5;
-let lastImg = 0;
+let lastImgNum = 0;
 
 showMoreBtn.addEventListener('click', function() {
-  getImgsAndSetCountValue();
+  getImgsAndSetNumValue();
 })
